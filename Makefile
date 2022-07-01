@@ -23,14 +23,13 @@ $(x86_64_asm_object_files): build/x86_64/%.o : src/impl/x86_64/%.asm
 #and then we can pass out object files as input
 #in the config file we generate a iso file, which use a kernel.bin, now we have to move this file from here to the boot foldel
 #and finally generate the iso file
+#we need to reference our iso folder
 .PHONY: build-x86_64
 build-x86_64: $(x86_64_asm_object_files)
 	mkdir -p dist/x86_64 && \
-	x86_64-elf-ld -n -o dist/x86_64/kernel.bin -T targets/x86_64/linker.ld $(x86_64_asm_object_files) && \ 
+	x86_64-elf-ld -n -o dist/x86_64/kernel.bin -T targets/x86_64/linker.ld $(x86_64_asm_object_files) && \
 	cp dist/x86_64/kernel.bin targets/x86_64/iso/boot/kernel.bin && \
 	grub-mkrescue /usr/lib/grub/i386-pc -o dist/x86_64/kernel.iso targets/x86_64/iso
-#we need to reference our iso folder
-
 
 
 
