@@ -3,7 +3,7 @@ x86_64_asm_source_files := $(shell find src/impl/x86_64 -name *.asm) #find all t
 
 #after compiling the source files will turn into object files, so we need a variable that point to all the
 #object files
-x86_64_asm_object_files := $(patsubst src/impl/x86_64/%.asm, build/x86_64/%.o, $(x86_64_asm_object_files))
+x86_64_asm_object_files := $(patsubst src/impl/x86_64/%.asm, build/x86_64/%.o, $(x86_64_asm_source_files))
 #renames all out input source files to the outputs object files which are saved in build directory
 
 
