@@ -2,7 +2,7 @@
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-07-01 18:31:53
  * @LastEditors: yuzhe zhilinlicn@gmail.com
- * @LastEditTime: 2022-07-02 16:41:50
+ * @LastEditTime: 2022-07-02 18:36:50
  * @FilePath: /OS/readme.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -10,11 +10,12 @@
 
 ## First part 
 
-### To run the docker container
+### To run the docker container and run OS
 
 Use this command in the terminal
 ````
 docker run --rm -it -v $(pwd):/root/env myos-buildenv
+qemu-system-x86_64 -cdrom dist/x86_64/kernel.iso
 ````
 
 ### The header.asm file
@@ -35,4 +36,5 @@ Crutial to allow us to link with c code
 ### Switch to 64 mode
 - To switch to the 64bits mode we need to switch the cpu mode to long mode
 - before doing it, we need to ensure that the cpu supports it
+- To enter we need a global descrip table
 ### Printing in C

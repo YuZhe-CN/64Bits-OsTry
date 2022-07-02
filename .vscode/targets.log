@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Jul  2 15:09:19 2022
+# Make data base, printed on Sat Jul  2 20:08:23 2022
 
 # Variables
 
@@ -30,6 +30,8 @@ SNAP_COMMON = /var/snap/code/common
 XDG_SESSION_TYPE = x11
 # environment
 VSCODE_LOG_NATIVE = false
+# makefile (from 'Makefile', line 12)
+kernel_source_files := src/impl/kernel/main.c
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
@@ -51,7 +53,7 @@ SNAP_DATA = /var/snap/code/99
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # makefile (from 'Makefile', line 1)
-x86_64_asm_source_files := src/impl/x86_64/boot/header.asm src/impl/x86_64/boot/main.asm 
+x86_64_asm_source_files := src/impl/x86_64/boot/header.asm src/impl/x86_64/boot/main.asm src/impl/x86_64/boot/main64.asm 
 # environment
 JOURNAL_STREAM = 8:40813
 # environment
@@ -102,6 +104,8 @@ XDG_RUNTIME_DIR = /run/user/1000
 GDK_PIXBUF_MODULE_FILE = /home/yuzhe/snap/code/common/.cache/gdk-pixbuf-loaders.cache
 # environment
 SNAP = /snap/code/99
+# makefile (from 'Makefile', line 10)
+x86_64_c_object_files :=  build/x86_64/print.o
 # environment
 SNAP_VERSION = 30d9c6cd
 # environment
@@ -125,7 +129,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 2718
+GIO_LAUNCHED_DESKTOP_FILE_PID = 28042
 # automatic
 %F = $(notdir $%)
 # environment
@@ -165,7 +169,7 @@ SNAP_CONTEXT = _NhJxGA14Mrvruu96TFbb0Sd8os7CRhIS06Sp5l3_1Cr1wBax0eV
 # automatic
 +F = $(notdir $+)
 # makefile (from 'Makefile', line 6)
-x86_64_asm_object_files :=  build/x86_64/boot/header.o  build/x86_64/boot/main.o
+x86_64_asm_object_files :=  build/x86_64/boot/header.o  build/x86_64/boot/main.o  build/x86_64/boot/main64.o
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
 # environment
@@ -190,10 +194,12 @@ QT_IM_MODULE = ibus
 SNAP_USER_DATA = /home/yuzhe/snap/code/99
 # environment
 SHLVL = 0
+# makefile (from 'Makefile', line 15)
+x86_64_object_files :=  build/x86_64/boot/header.o  build/x86_64/boot/main.o  build/x86_64/boot/main64.o  build/x86_64/print.o
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-844e03a2-2560-4ff8-8867-b13b5d2e29f1.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-3ba53034-2784-4a62-8cc1-18021425e735.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -228,6 +234,8 @@ MFLAGS = -pqrR
 *D = $(patsubst %/,%,$(dir $*))
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
+# makefile (from 'Makefile', line 13)
+kernel_object_files :=  build/kernel/main.o
 # environment
 GDK_BACKEND = x11
 # environment
@@ -256,6 +264,8 @@ LC_ALL = C
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # automatic
 ^F = $(notdir $^)
+# makefile (from 'Makefile', line 9)
+x86_64_c_source_files := src/impl/x86_64/print.c
 # default
 SUFFIXES := 
 # environment
@@ -270,17 +280,17 @@ WINDOWPATH = 2
 GJS_DEBUG_OUTPUT = stderr
 # default
 .RECIPEPREFIX := 
+ 
 # environment
 LC_ADDRESS = es_ES.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3060
+VSCODE_PID = 28081
 # variable set hash-table stats:
-# Load=132/1024=13%, Rehash=0, Collisions=23/163=14%
+# Load=137/1024=13%, Rehash=0, Collisions=26/183=14%
 
 # Pattern-specific Variable Values
- 
 
 # No pattern-specific variable values.
 
@@ -301,7 +311,7 @@ build/x86_64/boot/main.o: src/impl/x86_64/boot/main.asm
 #  Implicit/static pattern stem: 'boot/main'
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 17):
+#  recipe to execute (from 'Makefile', line 23):
 	mkdir -p $(dir $@) && \
 	nasm -f elf64 $(patsubst build/x86_64/%.o, src/impl/x86_64/%.asm, $@) -o $@
 
@@ -323,19 +333,40 @@ all:
 #  Modification time never checked.
 #  File has not been updated.
 
+build/kernel/main.o: src/impl/kernel/main.c
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: 'main'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 31):
+	mkdir -p $(dir $@) && \
+	x86_64-elf-gcc -c -I src/impl/intf -ffreestanding $(patsubst build/kernel/%.o, src/impl/kernel/%.c, $@) -o $@
+
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-01 23:30:06.518665905
+#  Last modified 2022-07-02 20:06:32.53269291
 #  File has been updated.
 #  Successfully updated.
+
+# Not a target:
+src/impl/x86_64/boot/main64.asm:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/impl/kernel/main.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 build/x86_64/boot/header.o: src/impl/x86_64/boot/header.asm
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: 'boot/header'
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 17):
+#  recipe to execute (from 'Makefile', line 23):
 	mkdir -p $(dir $@) && \
 	nasm -f elf64 $(patsubst build/x86_64/%.o, src/impl/x86_64/%.asm, $@) -o $@
 
@@ -345,37 +376,61 @@ src/impl/x86_64/boot/main.asm:
 #  Modification time never checked.
 #  File has not been updated.
 
+build/x86_64/print.o: src/impl/x86_64/print.c
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: 'print'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 27):
+	mkdir -p $(dir $@) && \
+	x86_64-elf-gcc -c -I src/impl/intf -ffreestanding $(patsubst build/x86_64/%.o, src/impl/x86_64/%.c, $@) -o $@
+
 # Not a target:
 .DEFAULT:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
-build-x86_64: build/x86_64/boot/header.o build/x86_64/boot/main.o
+# Not a target:
+src/impl/x86_64/print.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+build/x86_64/boot/main64.o: src/impl/x86_64/boot/main64.asm
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: 'boot/main64'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 23):
+	mkdir -p $(dir $@) && \
+	nasm -f elf64 $(patsubst build/x86_64/%.o, src/impl/x86_64/%.asm, $@) -o $@
+
+build-x86_64: build/kernel/main.o build/x86_64/boot/header.o build/x86_64/boot/main.o build/x86_64/boot/main64.o build/x86_64/print.o
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 29):
+#  recipe to execute (from 'Makefile', line 42):
 	mkdir -p dist/x86_64 && \
-	x86_64-elf-ld -n -o dist/x86_64/kernel.bin -T targets/x86_64/linker.ld $(x86_64_asm_object_files) && \
+	x86_64-elf-ld -n -o dist/x86_64/kernel.bin -T targets/x86_64/linker.ld $(kernel_object_files) $(x86_64_object_files) && \
 	cp dist/x86_64/kernel.bin targets/x86_64/iso/boot/kernel.bin && \
 	grub-mkrescue /usr/lib/grub/i386-pc -o dist/x86_64/kernel.iso targets/x86_64/iso
 
 # files hash-table stats:
-# Load=10/1024=1%, Rehash=0, Collisions=0/26=0%
+# Load=16/1024=2%, Rehash=0, Collisions=0/38=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 26 / storage = 319 B / avg = 12 B
-# current buf: size = 8162 B / used = 319 B / count = 26 / avg = 12 B
+# strcache buffers: 1 (0) / strings = 38 / storage = 546 B / avg = 14 B
+# current buf: size = 8162 B / used = 546 B / count = 38 / avg = 14 B
 
-# strcache performance: lookups = 37 / hit rate = 29%
+# strcache performance: lookups = 56 / hit rate = 32%
 # hash-table stats:
-# Load=26/8192=0%, Rehash=0, Collisions=1/37=3%
-# Finished Make data base on Sat Jul  2 15:09:19 2022
+# Load=38/8192=0%, Rehash=0, Collisions=1/56=2%
+# Finished Make data base on Sat Jul  2 20:08:23 2022
 
  

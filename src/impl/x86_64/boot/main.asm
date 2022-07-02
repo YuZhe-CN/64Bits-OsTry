@@ -1,5 +1,7 @@
 global start
 
+extern long_mode_start
+
 section .text
 bits 32         ; the ISA is in 32bits at the begining
 start:
@@ -24,9 +26,9 @@ start:
     ;the final 12 bits of the address are used as an offset
     ;cr3 register contains the poiter to the L4 table in any moment
 
+    lgdt [gdt64.pointer] 
 
-    mov dword [0xb8000], 0x2f4b2f4f ;move the OK string in hex to the video memory, which is fix
-    hlt ;order the cpu to freeze and not to read and run more instructions
+    jmp gdt64.code_segment:long_mode_start
 
 ;subroutines
 check_multiboot:
@@ -85,7 +87,7 @@ error:
     mov dword [0xb8000], 0x4f524f45
     mov dword [0xb8004], 0x4f3a4f52
     mov dword [0xb8008], 0x4f204f20
-    mov dword [0xb800a], al
+    mov byte [0xb800a], al
     hlt
 
 ;set up page tables
@@ -125,7 +127,7 @@ enable_paging:
 
     ;enable physical address extension
     mov eax, cr4
-    or, eax, 1 << 5 ;bit 5th is physical address extension bit
+    or eax, 1 << 5 ;bit 5th is physical address extension bit
     mov cr4, eax
 
     ;enable long mode
@@ -160,3 +162,15 @@ page_table_L2:
 stack_bottom:
     resb 4096 * 4 ;reserve 16KB of memory
 stack_top:
+
+section .rodata
+gdt64:
+    dq 0 ; zero entry
+
+.code_segment: equ $ - gdt64
+    dq (1 << 43) | (1 << 44) | (1 << 47) | (1 << 53) ; code segment, executable flag | descriptor type for code and data | enable the present flag | 64 flag
+
+.pointer:
+    dw $ - gdt64 - 1;this is a long pointer
+    ;$ indicates the current address
+    dq gdt64
