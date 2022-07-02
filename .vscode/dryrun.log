@@ -1,7 +1,7 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/home/yuzhe/Documents/OS'
  
-make: *** No targets.  Stop.
-
+mkdir -p build/x86_64/boot/ && \
+nasm -f elf64  src/impl/x86_64/boot/header.asm -o build/x86_64/boot/header.o
 make: Leaving directory '/home/yuzhe/Documents/OS'
  

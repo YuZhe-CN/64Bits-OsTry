@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Jul  1 19:32:04 2022
+# Make data base, printed on Sat Jul  2 15:09:19 2022
 
 # Variables
 
@@ -53,7 +53,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # makefile (from 'Makefile', line 1)
 x86_64_asm_source_files := src/impl/x86_64/boot/header.asm src/impl/x86_64/boot/main.asm 
 # environment
-JOURNAL_STREAM = 8:40059
+JOURNAL_STREAM = 8:40813
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -79,7 +79,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /snap/code/99/usr/share/code/code
 # environment
-MANAGERPID = 1527
+MANAGERPID = 1900
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -95,7 +95,7 @@ PATH = /home/yuzhe/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/yuzhe-VirtualBox:@/tmp/.ICE-unix/1791,unix/yuzhe-VirtualBox:/tmp/.ICE-unix/1791
+SESSION_MANAGER = local/yuzhe-VirtualBox:@/tmp/.ICE-unix/2157,unix/yuzhe-VirtualBox:/tmp/.ICE-unix/2157
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -113,7 +113,7 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 93d4bafa025943bcb4daf6ed4c0748a3
+INVOCATION_ID = c39098d64a114d5e81659dbe02a10846
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/99/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
@@ -125,7 +125,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 13022
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2718
 # automatic
 %F = $(notdir $%)
 # environment
@@ -139,7 +139,7 @@ PWD = /home/yuzhe/Documents/OS
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1752
+SSH_AGENT_PID = 2119
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -165,7 +165,7 @@ SNAP_CONTEXT = _NhJxGA14Mrvruu96TFbb0Sd8os7CRhIS06Sp5l3_1Cr1wBax0eV
 # automatic
 +F = $(notdir $+)
 # makefile (from 'Makefile', line 6)
-x86_64_asm_object_files := 
+x86_64_asm_object_files :=  build/x86_64/boot/header.o  build/x86_64/boot/main.o
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
 # environment
@@ -193,7 +193,7 @@ SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-8cf0e0c4-3617-4cdf-afe4-0a300948fc66.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-844e03a2-2560-4ff8-8867-b13b5d2e29f1.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -203,7 +203,7 @@ SNAP_REVISION = 99
 # environment
 LC_MONETARY = es_ES.UTF-8
 # makefile
-.DEFAULT_GOAL := 
+.DEFAULT_GOAL := build/x86_64/boot/header.o
 # environment
 XDG_CURRENT_DESKTOP = Unity
 # automatic
@@ -275,9 +275,9 @@ LC_ADDRESS = es_ES.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 13064
+VSCODE_PID = 3060
 # variable set hash-table stats:
-# Load=132/1024=13%, Rehash=0, Collisions=23/160=14%
+# Load=132/1024=13%, Rehash=0, Collisions=23/163=14%
 
 # Pattern-specific Variable Values
  
@@ -286,15 +286,30 @@ VSCODE_PID = 13064
 
 # Directories
 
-# . (device 2053, inode 1050211): 9 files, no impossibilities.
+# . (device 2053, inode 1050211): 11 files, no impossibilities.
 
-# 9 files, no impossibilities in 1 directories.
+# 11 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
 # No implicit rules.
 
 # Files
+
+build/x86_64/boot/main.o: src/impl/x86_64/boot/main.asm
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: 'boot/main'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 17):
+	mkdir -p $(dir $@) && \
+	nasm -f elf64 $(patsubst build/x86_64/%.o, src/impl/x86_64/%.asm, $@) -o $@
+
+# Not a target:
+src/impl/x86_64/boot/header.asm:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 all:
@@ -303,12 +318,32 @@ all:
 #  File does not exist.
 #  File has not been updated.
 
+.PHONY: build-x86_64
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-01 19:32:01.433171406
+#  Last modified 2022-07-01 23:30:06.518665905
 #  File has been updated.
 #  Successfully updated.
+
+build/x86_64/boot/header.o: src/impl/x86_64/boot/header.asm
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: 'boot/header'
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 17):
+	mkdir -p $(dir $@) && \
+	nasm -f elf64 $(patsubst build/x86_64/%.o, src/impl/x86_64/%.asm, $@) -o $@
+
+# Not a target:
+src/impl/x86_64/boot/main.asm:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 .DEFAULT:
@@ -316,20 +351,31 @@ Makefile:
 #  Modification time never checked.
 #  File has not been updated.
 
+build-x86_64: build/x86_64/boot/header.o build/x86_64/boot/main.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 29):
+	mkdir -p dist/x86_64 && \
+	x86_64-elf-ld -n -o dist/x86_64/kernel.bin -T targets/x86_64/linker.ld $(x86_64_asm_object_files) && \
+	cp dist/x86_64/kernel.bin targets/x86_64/iso/boot/kernel.bin && \
+	grub-mkrescue /usr/lib/grub/i386-pc -o dist/x86_64/kernel.iso targets/x86_64/iso
+
 # files hash-table stats:
-# Load=4/1024=0%, Rehash=0, Collisions=0/14=0%
+# Load=10/1024=1%, Rehash=0, Collisions=0/26=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 14 / storage = 113 B / avg = 8 B
-# current buf: size = 8162 B / used = 113 B / count = 14 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 26 / storage = 319 B / avg = 12 B
+# current buf: size = 8162 B / used = 319 B / count = 26 / avg = 12 B
 
-# strcache performance: lookups = 18 / hit rate = 22%
+# strcache performance: lookups = 37 / hit rate = 29%
 # hash-table stats:
-# Load=14/8192=0%, Rehash=0, Collisions=1/18=6%
-# Finished Make data base on Fri Jul  1 19:32:04 2022
+# Load=26/8192=0%, Rehash=0, Collisions=1/37=3%
+# Finished Make data base on Sat Jul  2 15:09:19 2022
 
  
